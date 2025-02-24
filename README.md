@@ -16,24 +16,7 @@
     <li><strong>Frameworks & Libraries:</strong> Entity Framework, Bootstrap</li>
 </ul>
 
-<h2>🚀 Getting Started</h2>
-<ol>
-    <li><strong>Clone the repository:</strong>
-        <pre><code>git clone https://github.com/your-username/hospital-management-system.git</code></pre>
-    </li>
-    <li><strong>Set up the database:</strong>
-        <ul>
-            <li>Configure SQL Server</li>
-            <li>Update <code>appsettings.json</code> with your connection string</li>
-        </ul>
-    </li>
-    <li><strong>Run Migrations:</strong>
-        <pre><code>dotnet ef database update</code></pre>
-    </li>
-    <li><strong>Start the Application:</strong>
-        <pre><code>dotnet run</code></pre>
-    </li>
-</ol>
+
 
 <h2>👥 Contributors</h2>
 <ul>
