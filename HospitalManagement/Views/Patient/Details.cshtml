@@ -1,0 +1,42 @@
+﻿@model Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <div class="row g-4 align-items-center">
+            <!-- صورة المريض -->
+            <div class="col-md-4 text-center">
+                <img src="~/Images/Patient/@(string.IsNullOrEmpty(Model.Image) ? "default-patient.png" : Model.Image)"
+                     class="img-fluid rounded-3 border shadow" style="max-height: 300px;" alt="Patient Image" />
+            </div>
+
+            <!-- تفاصيل المريض -->
+            <div class="col-md-8">
+                <h2 class="text-primary mb-3">@Model.Name</h2>
+                <hr />
+                <dl class="row fs-5">
+                    <dt class="col-sm-4 fw-bold text-secondary">Date of Birth</dt>
+                    <dd class="col-sm-8">@Model.DOB.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-4 fw-bold text-secondary">Gender</dt>
+                    <dd class="col-sm-8">@Model.Gender</dd>
+
+                    <dt class="col-sm-4 fw-bold text-secondary">Contact Info</dt>
+                    <dd class="col-sm-8">@Model.ContactInfo</dd>
+
+                    <dt class="col-sm-4 fw-bold text-secondary">Address</dt>
+                    <dd class="col-sm-8">@Model.Address</dd>
+                </dl>
+
+                <div class="mt-4"> 
+                    <a asp-action="GetAll" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@model MedicalReport
+
+<div class="container mt-5">
+    <div class="card shadow-sm rounded-4 p-4">
+        <h2 class="text-center text-primary mb-4">Medical Report Details</h2>
+        <hr />
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Report Date:</strong> @Model.ReportDate.ToString("yyyy-MM-dd")</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Department:</strong> @Model.Doctor?.Department?.Name</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Patient Name:</strong> @Model.Patient?.Name</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Doctor Name:</strong> @Model.Doctor?.Name</p>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <p><strong>Diagnosis:</strong></p>
+            <div class="border p-3 rounded bg-light">@Model.Diagnosis</div>
+        </div>
+
+        <div class="mb-3">
+            <p><strong>Prescription:</strong></p>
+            <div class="border p-3 rounded bg-light">@Model.Prescription</div>
+        </div>
+
+        <div class="mb-3">
+            <p><strong>Notes:</strong></p>
+            <div class="border p-3 rounded bg-light">@Model.Notes</div>
+        </div>
+
+        <div class="text-end">
+            <a asp-action="GetAll" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>

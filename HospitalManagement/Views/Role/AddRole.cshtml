@@ -1,0 +1,38 @@
+﻿
+@model RoleViewModel
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="text-center text-primary">Add Role</h1>
+        <h4 class="text-secondary text-center">Fill in the details below</h4>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" asp-action="SaveRole">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="RoleName" class="form-label fw-bold">Role Name</label>
+                        <input asp-for="RoleName" class="form-control" placeholder="Enter the role name" required />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Create
+                        </button>
+                    </div>
+                </form>
+                @if (ViewBag.Success != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        Role created successfully.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+            

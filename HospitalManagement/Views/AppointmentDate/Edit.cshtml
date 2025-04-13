@@ -1,0 +1,100 @@
+﻿@model AppointmentDateVM
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="text-center text-warning">Edit Appointment</h1>
+        <h4 class="text-secondary text-center mb-4">Update appointment details</h4>
+        <hr />
+        <div class="text-center mb-4">
+            <h5>Patient: @ViewBag.PatientName</h5>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" asp-action="SaveEdit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Id" class="form-label fw-bold"></label>
+                        <input asp-for="Id" class="form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="AppointmentDate" class="form-label fw-bold"></label>
+                        <input asp-for="AppointmentDate" type="datetime-local" class="form-control" />
+                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="col-form-label">Department</label>
+                        <select id="DepID" name="DepID" class="form-control" onchange="GetDoctor()">
+                            <option value="0" disabled>-- Select Department --</option>
+                            @foreach (var deptitem in Model.DeptList)
+                            {
+                                <option value="@deptitem.Id">@deptitem.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="DoctorId" class="form-label">Doctor</label>
+                        <select id="Doc" name="DoctorId" class="form-control">
+                            <option value="0" disabled>-- Select Doctor --</option>
+                        </select>
+                        <span asp-validation-for="DoctorId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-3 text-center">
+                    <a asp-action="MyAppointments" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function GetDoctor() {
+        var deptId= document.getElementById("DepID").value;
+        var DoctoreElement= document.getElementById("Doc");
+        DoctoreElement.innerHTML = "";
+         DoctoreElement.innerHTML += '<option value="0" selected disabled>-- Select Doctor --</option>';
+        console.log(deptId);
+        //ajax call
+        $.ajax({
+            url: "/AppointmentDate/GetDoctorByDeptId?deptId=" + deptId,
+            success: function(result){
+                console.log(result);
+                $("#div1").html(result);
+                for(let doc of result){
+                    DoctoreElement.innerHTML+="<Option value = "+doc.id+">"+doc.name+"</Option>"
+                }
+            }
+        });
+    }
+
+    // Ensure doctors are loaded for selected department on page load
+    $(document).ready(function() {
+        var deptId = $("#DepID").val();
+        if (deptId && deptId != "0") {
+            GetDoctor();  // Load doctors for the selected department
+        }
+    });
+</script>

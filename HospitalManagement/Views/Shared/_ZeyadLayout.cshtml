@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Spica Admin</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/vendors/mdi/css/materialdesignicons.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="icon" type="image/png" href="~/assets/img/favicon.png" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="container-scroller d-flex">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item sidebar-category">
+                    <p>Navigation</p>
+                    <span></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-house-user mx-2"></i>
+                        <span class="menu-title">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Privacy">
+                        <i class="fa-solid fa-house-user mx-2"></i>
+                        <span class="menu-title">Privacy Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="SignOut">
+                        <i class="fa-solid fa-right-from-bracket mx-2"></i>
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </li>
+
+
+                <!-- start of the dashboard -->
+
+                @*/************* Doctore **************/ *@
+                @if (User.IsInRole("Doctor") == true)
+                {
+                    <li class="nav-item sidebar-category">
+                        <p>Doctors</p>
+                        <span></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-doctors" aria-expanded="false" aria-controls="ui-basic-doctors">
+                            <i class="fa-solid fa-user-doctor mx-2"></i>
+                            <span class="menu-title">Appointments</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-doctors">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="AppointmentDate" asp-action="GetAll">View Appointments</a>
+                                </li>                        
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#reoort-doctors" aria-expanded="false" aria-controls="reoort-doctors">
+                            <i class="fa-solid fa-book-medical mx-2"></i>
+                            <span class="menu-title">Reports</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="reoort-doctors">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="MedicalReport" asp-action="GetAll">View Reports</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="MedicalReport" asp-action="Add">Add New Report</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                }
+                @*/************* patient **************/ *@
+                @if (User.IsInRole("Patient") == true)
+                {
+                    <li class="nav-item sidebar-category">
+                        <p>Patient</p>
+                        <span></span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Patient" aria-expanded="false" aria-controls="ui-basic-Patient">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Appointments</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Patient">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="AppointmentDate" asp-action="GetAll">View Appointments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Add" asp-controller="AppointmentDate">Add Appointment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#reoort-Patient" aria-expanded="false" aria-controls="reoort-Patient">
+                            <i class="fa-solid fa-book-medical mx-2"></i>
+                            <span class="menu-title">Reports</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="reoort-Patient">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="MedicalReport" asp-action="GetAll">View Reports</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                {
+                    @*/************* Staff/Admin **************/ *@
+                    <li class="nav-item sidebar-category">
+                        <p>Staff</p>
+                        <span></span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Staff-Doctor" aria-expanded="false" aria-controls="ui-basic-Staff-Doctpr">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Manage Doctors</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Staff-Doctor">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Doctor" asp-action="GetAll">Doctors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Add" asp-controller="Doctor" >Add Doctor</a>
+                                </li>   
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Staff-patient" aria-expanded="false" aria-controls="ui-basic-Staff-patient">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Manage Patients</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Staff-patient">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Patient" asp-action="GetAll">Patients</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Patient" asp-action="Add">Add Patient</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Staff-Department" aria-expanded="false" aria-controls="ui-basic-Staff-Department">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Manage Department</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Staff-Department">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Department" asp-action="GetDepartment">Departments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Department" asp-action="Add">Add Department</a>
+                                </li>
+                                @*Room*@
+                                <span class="menu-sub-title">Room</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Room" asp-action="GetAll">Rooms</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Room" asp-action="Add">Add Room</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Staff-Nurse" aria-expanded="false" aria-controls="ui-basic-Staff-Nurse">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Manage Nurse</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Staff-Nurse">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Nurse" asp-action="GetAll">Nurse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Nurse" asp-action="Add">Add Nurse</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    
+                                @* Staff *@
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-Staff" aria-expanded="false" aria-controls="ui-basic-Staff">
+                            <i class="fa-solid fa-calendar-check mx-2"></i>
+                            <span class="menu-title">Manage Staff</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic-Staff">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Staff" asp-action="GetAll">Staff</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Staff" asp-action="Registerstaff">Add Staff</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#report-Staff" aria-expanded="false" aria-controls="report-Staff">
+                            <i class="fa-solid fa-book-medical mx-2"></i>
+                            <span class="menu-title">Reports</span>
+                            <i class="menu-arrow"></i>
+                        </a> 
+                        <div class="collapse" id="report-Staff">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="MedicalReport" asp-action="GetAll">View Reports</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#Appointment-Staff" aria-expanded="false" aria-controls="Appointment-Staff">
+                            <i class="fa-solid fa-book-medical mx-2"></i>
+                            <span class="menu-title">Appointment</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="Appointment-Staff">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="AppointmentDate" asp-action="GetAll">View Appointment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                }                                            
+                                                                 @* End *@
+            </ul>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
+                <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+
+                    <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1 mx-2">
+                        Welcome back,<span>Brandon Haynes</span>
+                    </h4>
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item">
+                            <h4 class="mb-0 font-weight-bold d-none d-xl-block" id="date-range">
+                                <!-- Date will be inserted here by JavaScript -->
+                            </h4>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                </div>
+            </nav>
+            <!-- partial -->
+            @RenderBody()
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+    <script>
+     
+
+    </script>
+
+    <!-- JS -->
+    <script src="~/vendors/js/vendor.bundle.base.js" asp-append-version="true"></script>
+    <script src="~/vendors/chart.js/Chart.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.cookie.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/js/off-canvas.js" asp-append-version="true"></script>
+    <script src="~/js/hoverable-collapse.js" asp-append-version="true"></script>
+    <script src="~/js/dashboard.js" asp-append-version="true"></script>
+    <script src="~/js/getDate.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

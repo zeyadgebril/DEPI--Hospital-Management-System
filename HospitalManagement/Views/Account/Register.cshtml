@@ -1,0 +1,46 @@
+﻿@model HospitalManagement.ViewModel.RegisterUserViewModel
+
+@{
+    ViewData["Title"] = "Register Patient" ;
+}
+
+<div class="container py-5">
+    <div class="card shadow-lg p-4 mx-auto" style="max-width: 600px;">
+        <h2 class="text-center text-primary mb-4">Register as Patient</h2>
+
+        <form asp-action="SaveRegister" method="post">
+
+            <div class="mb-3">
+                <label asp-for="UserName" class="form-label fw-bold"></label>
+                <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UserEmail" class="form-label fw-bold"></label>
+                <input asp-for="UserEmail" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="UserEmail" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-bold"></label>
+                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label fw-bold"></label>
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

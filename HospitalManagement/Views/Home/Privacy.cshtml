@@ -1,0 +1,122 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Privacy";
+    var userData = Model.Object;
+}
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h3 class="mb-0 py-2">Welcome, @Model.user.UserName</h3>
+                </div>
+                <!-- صورة البروفايل -->
+                <div class="card-body p-4">
+                    <div class="row">
+                        @if (userData is Patient patient1)
+                        {
+                            <div class="col-md-4 text-center mb-3 mb-md-0 d-flex align-items-center justify-content-center">
+                                <img src="~/Images/patient/@patient1.Image" alt="User Avatar" class="img-fluid rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover;">
+                            </div>
+                        }
+                        else if (userData is Doctor doctor1)
+                        {
+                            <div class="col-md-4 text-center mb-3 mb-md-0 d-flex align-items-center justify-content-center">
+                                <img src="~/images/Doctor/@doctor1.Image" alt="User Avatar" class="img-fluid rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover;">
+                            </div>
+
+                        }
+                        else if (userData is Staff staff1 )
+                        {
+                            <div class="col-md-4 text-center mb-3 mb-md-0 d-flex align-items-center justify-content-center">
+                                <img src="~/Images/patient/@staff1.Image" alt="User Avatar" class="img-fluid rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover;">
+                            </div>
+                        }
+                        else
+                        {
+
+                        }
+
+
+                        <!-- بيانات المستخدم -->
+                        <div class="col-md-8">
+                            @if (userData is Patient patient)
+                            {
+                                <h4 class="text-secondary mb-4">Patient Information</h4>
+                                <dl class="row">
+                                    <dt class="col-sm-4">Full Name</dt>
+                                    <dd class="col-sm-8">@patient.Name</dd>
+
+                                    <dt class="col-sm-4">Phone Number</dt>
+                                    <dd class="col-sm-8">@patient.ContactInfo</dd>
+
+                                    <dt class="col-sm-4">Email</dt>
+                                    <dd class="col-sm-8">@Model.user.Email</dd>
+
+                                    <dt class="col-sm-4">Birth Date</dt>
+                                    <dd class="col-sm-8">@patient.DOB.ToShortDateString()</dd>
+                                </dl>
+                            }
+                            else if (userData is Doctor doctor)
+                            {
+                                <h4 class="text-secondary mb-4">Doctor Information</h4>
+                                <dl class="row">
+                                    <dt class="col-sm-4">Full Name</dt>
+                                    <dd class="col-sm-8">@doctor.Name</dd>
+
+                                    <dt class="col-sm-4">Specialization</dt>
+                                    <dd class="col-sm-8">@doctor.Specialty</dd>
+
+                                    <dt class="col-sm-4">Phone Number</dt>
+                                    <dd class="col-sm-8">@doctor.ContactInfo</dd>
+
+                                    <dt class="col-sm-4">Email</dt>
+                                    <dd class="col-sm-8">@doctor.Email</dd>
+
+                                    <dt class="col-sm-4">Experience</dt>
+                                    <dd class="col-sm-8">@doctor.ExperienceYears Years</dd>
+                                </dl>
+                            }
+                            else if (userData is Staff staff)
+                            {
+                                <h4 class="text-secondary mb-4">Staff Information</h4>
+                                <dl class="row">
+                                    <dt class="col-sm-4">Full Name</dt>
+                                    <dd class="col-sm-8">@staff.Name</dd>
+
+                                    <dt class="col-sm-4">Role</dt>
+                                    <dd class="col-sm-8">@staff.Role</dd>
+
+                                    <dt class="col-sm-4">Phone Number</dt>
+                                    <dd class="col-sm-8">@staff.ContactInfo</dd>
+
+                                    <dt class="col-sm-4">Email</dt>
+                                    <dd class="col-sm-8">@staff.Email</dd>
+                                </dl>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning text-center">
+                                    No data available to display.
+                                </div>
+                            }
+                            <div class="mt-4">
+                                @if (User.IsInRole("Patient") == true)
+                                {
+                                    <a asp-action="MyAppointments" asp-controller="AppointmentDate" class="btn btn-primary me-3">My Appointment</a>
+                                }
+                                @if (User.IsInRole("Patient") != true)
+                                {
+                                    <a asp-action="GetAll" asp-controller="AppointmentDate" class="btn btn-primary me-3">My Appointment</a>
+                                }
+                                <a asp-action="GetAll" asp-controller="MedicalReport" class="btn btn-secondary">My Report</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
